@@ -12,11 +12,12 @@ class ProduitAdmin(admin.ModelAdmin):
 class CommandeAdmin(admin.ModelAdmin):
     # fields = ["produit", ("nom", "prenom"), "phone_number", "adress",
     #           "quantité", "etat", "date_commande", "date_reçu", ]
-    exclude = ['annulé']
-    list_display = ['__str__', 'etat', "phone_number1", "phone_number2", 'adress', 'quantité',
+
+    exclude = ['phone_number', 'annulé']
+    list_display = ['__str__', 'etat', 'phone_number', 'adress', 'quantité',
                     'date_commande', 'date_reçu', 'annulé']
-    list_filter = ['etat', 'date_commande', 'date_reçu']
     list_editable = ['annulé']
+    list_filter = ['etat', 'date_commande', 'date_reçu']
 
 
 admin.site.register(Produit, ProduitAdmin)
