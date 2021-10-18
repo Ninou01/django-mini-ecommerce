@@ -53,7 +53,6 @@ class Commande(models.Model):
     date_commande = models.DateTimeField(default=datetime.datetime.now())
     date_reçu = models.DateTimeField(blank=True, null=True)
     annulé = models.BooleanField(default=False)
-    phone_number = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return "{} {} - {} {}".format(self.nom, self.prenom, self.quantité, self.produit)
@@ -67,12 +66,6 @@ class Commande(models.Model):
     def save(self, *args, **kwargs):
         if self.etat == "reçue":
             self.date_reçu = datetime.datetime.now()
-
-        if self.phone_number2 != None:
-            self.phone_number = "{}/{}".format(self.phone_number1,
-                                               self.phone_number2)
-        else:
-            self.phone_number = self.phone_number1
 
         super(Commande, self).save(*args, **kwargs)
 
