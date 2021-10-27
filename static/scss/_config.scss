@@ -1,0 +1,83 @@
+:root {
+    --grey: #E6E6E6;
+}
+
+*, 
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Open Sans', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.section-title {
+    text-align: center;
+    margin: 20px 0 60px;
+}
+
+.section-title .title {
+    color: var(--grey); 
+    font-size: 6.2rem;
+    margin-bottom: -37px;
+}
+
+.discount {
+    color: #8f8a8a;
+    text-decoration: line-through;
+}
+
+.commande-button {
+        width: 80%;
+        padding: 15px 20px;
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #fff;
+        background-color: hsl(211, 100%, 50%);
+        border: 2px solid hsl(211, 100%, 40%);
+        border-radius: 7px;
+        cursor: pointer;
+        transition-property: background-color, border-color;
+        transition-duration: 200ms, 200ms;
+    
+        &:hover {
+            background-color: hsl(211, 100%, 40%);
+            border-color: hsl(211, 100%, 30%);
+        }
+}
+
+.success-messages {
+    background-color: #d4edda;
+    padding: 20px 50px;
+    color: #29a847;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+/************* mobile design *************/
+
+@media only screen and (max-width: 760px) {
+    .section-title .title {
+        font-size: 5rem;
+    }
+}
+
+
+@function text-color($color) {
+    @if(lightness($color) > 50){
+        @return #fff;
+    } 
+    @else {
+        @return #000;
+    }
+}
+

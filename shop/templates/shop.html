@@ -1,3 +1,44 @@
-{% for produit in produits %}
-    {{ produit }}<br>
-{% endfor %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% comment %} css style code file  {% endcomment %}
+<link rel="stylesheet" href="{% static 'css/shop-style.css' %}">
+
+
+<section class="hero">
+    <div>
+        <h2 class="hero__title">Bienvenu Chez Bootiga!</h2>
+        <p class="hero__description">Votre platforme pour tout vos poduits bio et cosmétiques</p>
+    </div>
+</section>
+
+<section class="produits">
+    <div class="section-title">
+        <h2 class="title">Nos Produits</h2>
+    </div>
+
+    <div class="produits__grid">
+    {% for produit in produits %}
+        <div class="produit-card">
+            <a href="{% url 'shop:produit_page' produit.id produit.slug %}">
+                <img class="produit-card-image" src="{{ produit.image.url }}" alt="" title="">
+                <h3 class="produit-card-title">{{ produit.name }}</h3>
+                <div>
+                    {% if produit.prix_remise %}
+                        <span class="produit-card-price discount">{{ produit.prix }}DA</span> -
+                        <span class="produit-card-price">{{ produit.prix_remise }}DA</span>
+                    {% else %}
+                        <span class="produit-card-price">{{ produit.prix }}DA</span>
+                    {% endif %}
+                </div>
+                <button class="commande-button">أطلب الأن</button>
+            </a>
+        </div>
+    {% endfor %}
+
+    </div>
+</section>
+
+{% endblock %}

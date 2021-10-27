@@ -1,0 +1,43 @@
+.hero {
+    text-align: center;
+    background-color: #fbfbfb;
+
+    div {
+        background-image: url('../images/bio.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: bottom;
+        height: 170px;
+        max-width: 1400px;
+        margin: auto;
+    }
+
+    &__title {
+        padding: 40px 0 27px;
+        font-size: 3rem;
+        color: #4caf50;
+    }
+    
+    p {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: rgb(40, 40, 40);
+    }
+}
+
+
+@media only screen and (max-width:760px) {
+
+    .hero {
+        margin-bottom: 50px;
+
+        &__title {
+            font-size: 2rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+        }
+    }
+    
+}

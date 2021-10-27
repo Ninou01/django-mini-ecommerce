@@ -1,0 +1,103 @@
+.produits {
+    margin-bottom: 100px;
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 60px 30px;
+        max-width: 1400px;
+        padding: 0 50px;
+        margin: auto;
+
+        .produit-card {
+            width: 340px;
+            box-shadow: 1px 2px 10px -5px rgba(0, 0, 0, 0.8);
+            border-radius: 5px;
+            text-align: center;
+            transition: transform 300ms;
+            margin: auto;
+
+            &:hover {
+                transform: scale(1.02);
+            }
+
+            a {
+                display: block;
+                padding: 0 0 20px;
+                color: #222;
+            }
+
+            &-image {
+                width: 340px;
+                height: 270px;
+                border-radius: 7px 7px 0 0;
+            }
+
+            &-title {
+                color: #222;
+                margin: 15px 0;
+                font-size: 1.5rem;
+                font-weight: 400;
+            }
+
+            &-price {
+                font-size: 1.3rem;
+                font-weight: 600;
+                margin-bottom: 15px;
+                display: inline-block;
+            }
+
+            button {
+                width: 80%;
+                padding: 15px 20px;
+                font-size: 1.3rem;
+                font-weight: bold;
+                color: #fff;
+                background-color: hsl(211, 100%, 50%);
+                border: 2px solid hsl(211, 100%, 40%);
+                border-radius: 7px;
+                cursor: pointer;
+                transition-property: background-color, border-color;
+                transition-duration: 200ms, 200ms;
+
+                &:hover {
+                    background-color: hsl(211, 100%, 40%);
+                    border-color: hsl(211, 100%, 30%);
+                }
+            }
+
+        }
+    }
+}
+
+@media only screen and (min-width: 761px) and (max-width: 1024px) {
+    
+    .produits__grid {
+
+        .produit-card {
+            width: 280px;
+    
+            &-image {
+                width: 280px;
+                height: 230px;
+            }
+        }
+    }
+    
+}
+
+@media only screen and (max-width:760px) {
+
+    .produits{
+
+        .section-title {
+            display: none;
+        }
+        
+        &__grid {
+            grid-template-columns: none;
+            padding: 0;
+        }
+    }
+    
+}

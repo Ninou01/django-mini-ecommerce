@@ -5,23 +5,17 @@ from .models import Produit, Commande
 
 class ProduitAdmin(admin.ModelAdmin):
     readonly_fields = ['slug']
-    list_display = ['name', 'prix', 'prix_remise', 'en_stock']
-    list_filter = ['prix', 'prix_remise', 'en_stock']
+    list_display = ['name', 'prix', 'prix_remise', 'quantité_en_stock']
+    list_filter = ['prix', 'prix_remise', ]
 
 
 class CommandeAdmin(admin.ModelAdmin):
-    # fields = ["produit", ("nom", "prenom"), "phone_number", "adress",
-    #           "quantité", "etat", "date_commande", "date_reçu", ]
 
-    exclude = ['annulé']
-    list_display = ['full_nmae', 'quantité', 'produit', 'etat', 'phone__number', 'adress',
-                    'date_commande', 'date_reçu', 'annulé']
-    list_editable = ['etat', 'annulé']
-    list_filter = ['etat', 'date_commande', 'date_reçu']
-    search_fields = ("nom", "prenom")
-
-    def full_nmae(self, obj):
-        return "{} {}" .format(obj.nom, obj.prenom)
+    list_display = ['id', 'full_name', 'quantité', 'produit', 'etat', 'phone__number', 'adresse',
+                    'date_commande', 'date_confirmation', ]
+    list_editable = ['etat', ]
+    list_filter = ['etat', 'date_commande', 'date_confirmation']
+    search_fields = ('full_name',)
 
     def phone__number(self, obj):
         if obj.phone_number2 != None:
@@ -30,7 +24,6 @@ class CommandeAdmin(admin.ModelAdmin):
         else:
             return obj.phone_number1
 
-    full_nmae.short_description = "Full Name"
     phone__number.short_description = "Phone Number"
 
 

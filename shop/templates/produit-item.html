@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% comment %} css style code file {% endcomment %}
+<link rel="stylesheet" href="{% static 'css/produit-item-style.css' %}">
+{% if messages %}
+    <div class="success-messages">
+        <ul>
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+<section class="produit-item">
+    <div class="container">
+        <div class="produit-item__detail">
+            <div class="produit-item__image">
+                <img src="{{ produit.image.url }}" alt="">
+            </div>
+            <h2 class="produit-item__name">{{ produit.name }}</h2>
+            <div class="produit-item__price">
+                {% if produit.prix_remise %}
+                <span class="produit-item__price discount">{{ produit.prix }}DA</span> -
+                <span class="produit-item__price">{{ produit.prix_remise }}DA</span>
+                {% else %}
+                <span class="produit-item__price">{{ produit.prix }}DA</span>
+                {% endif %}
+            </div>
+            <p class="produit-item__description">
+                {{ produit.description }}
+            </p>
+        </div>
+        <div class="produit-item__commande" id="form">
+            <h2>pour commader ce produit veuillez remplire ce formulaire</h2>
+            <form action="" method="post">
+                {% csrf_token %}
+                {% for f in form %}
+                {% if f.label == 'Quantité' %}
+                <label for="">Quantité: </label>
+                {% endif %}
+
+                {{ f }}
+                {% endfor %}
+                <div class="errors">
+                    {% for f in form %}
+                    {{ f.errors }}
+                    {% endfor %}
+                </div>
+                <input type="submit" value="Commander">
+            </form>
+        </div>
+        <a href="#form" class="commande-button display-phone">أطلب الأن</a>
+    </div>
+</section>
+
+{% comment %}
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script> {% endcomment %}
+<script type="text/javascript" src="{% static 'js/scroll-smooth.js' %}"></script>
+
+{% endblock %}

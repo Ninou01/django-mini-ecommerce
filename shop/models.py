@@ -1,21 +1,23 @@
 from django.db import models
 from django.utils.text import slugify
-from django.db.models.signals import post_save
-import datetime
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 from django.core.validators import RegexValidator
+from django.core.validators import MinValueValidator
+import os
+import datetime
 
 # Create your models here.
 
 
 class Produit(models.Model):
     name = models.CharField(max_length=200)
-    prix = models.DecimalField(
-        max_digits=10, decimal_places=2, blank=True, null=True)
-    prix_remise = models.FloatField(blank=True, null=True)
+    prix = models.PositiveIntegerField()
+    prix_remise = models.PositiveIntegerField(blank=True, null=True)
     slug = models.SlugField(blank=True)
     description = models.TextField(blank=True, null=True)
-    en_stock = models.BooleanField(default=True)
-    # image = models.ImageField(blank=True, null=True)
+    quantité_en_stock = models.PositiveIntegerField(default=0)
+    image = models.ImageField(upload_to='shop/produits/')
 
     def __str__(self):
         return self.name
@@ -27,15 +29,15 @@ class Produit(models.Model):
 
 COMMANDE_ETAT = (
     ("en attente", "en attente"),
-    ("envoyer", "envoyer"),
-    ("reçue", "reçue"),
+    ("confirmé", "confirmé"),
+    ("non confitmé", "non confitmé"),
 )
 
 
 class Commande(models.Model):
-    produit = models.ForeignKey(Produit, on_delete=models.PROTECT)
-    nom = models.CharField(max_length=200)
-    prenom = models.CharField(max_length=200)
+    produit = models.ForeignKey(
+        Produit, on_delete=models.SET_NULL, null=True)
+    full_name = models.CharField(max_length=200)
 
     phone_regex = RegexValidator(
         regex=r'^0?\d{10,}$',
@@ -46,34 +48,47 @@ class Commande(models.Model):
     phone_number2 = models.CharField(
         validators=[phone_regex], max_length=10, blank=True, null=True)
 
-    adress = models.CharField(max_length=500)
-    quantité = models.PositiveIntegerField(default=1)
+    adresse = models.CharField(max_length=500)
+    quantité = models.PositiveIntegerField(
+        default=1, validators=[MinValueValidator(1), ])
     etat = models.CharField(choices=COMMANDE_ETAT,
                             default="en attente", max_length=50)
     date_commande = models.DateTimeField(default=datetime.datetime.now())
-    date_reçu = models.DateTimeField(blank=True, null=True)
-    annulé = models.BooleanField(default=False)
-
-    def __str__(self):
-        return "{} {} - {} {}".format(self.nom, self.prenom, self.quantité, self.produit)
-
-    def get_total_amount(self):
-        if self.produit.prix_remise:
-            return self.produit.prix_remise * self.quantité
-        else:
-            return self.produit.prix * self.quantité
+    date_confirmation = models.DateTimeField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        if self.etat == "reçue":
-            self.date_reçu = datetime.datetime.now()
-
+        if self.etat == "confirmé":
+            self.date_confirmation = datetime.datetime.now()
         super(Commande, self).save(*args, **kwargs)
 
 
-def delete_commande(sender, **kwargs):
-    commandes = Commande.objects.all().filter(annulé=True)
-    for commande in commandes:
-        commande.delete()
+@receiver(models.signals.post_delete, sender=Produit)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    """
+    Deletes file from filesystem
+    when corresponding `Produit` object is deleted.
+    """
+    if instance.image:
+        if os.path.isfile(instance.image.path):
+            os.remove(instance.image.path)
 
 
-post_save.connect(delete_commande, sender=Commande)
+@receiver(models.signals.pre_save, sender=Produit)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+    """
+    Deletes old file from filesystem
+    when corresponding `Produit` object is updated
+    with new file.
+    """
+    if not instance.pk:
+        return False
+
+    try:
+        old_file = Produit.objects.get(pk=instance.pk).image
+    except Produit.DoesNotExist:
+        return False
+
+    new_file = instance.image
+    if not old_file == new_file:
+        if os.path.isfile(old_file.path):
+            os.remove(old_file.path)

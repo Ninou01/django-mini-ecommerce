@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+        integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
+
+
+    <!-- sections styles  -->
+    
+    <title>{% if produit.name %} {{ produit.name }} | {% endif %}shop</title>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="{% url 'shop:shop_page' %}"><img src="{% static 'images/logo.png' %}" alt=""></a>
+        </div>
+
+        <div class="home-icon">
+            <a href="{% url 'shop:shop_page' %}"><i class="fas fa-home"></i></a>
+        </div>
+    </header>
+
+    {% block content %}
+
+        {% comment %} here commes the content from the other pages {% endcomment %}
+
+    {% endblock %}
+
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <h3 class="title mg-bottom">Bootiga</h3>
+                <p>Copyright &copy; 2021</p>
+            </div>
+            <div>
+                <p class="mg-bottom">contactez nous sur notre adress email:</p>
+                <h3>ayoub.farhi@gmail.com</h3>
+            </div>
+
+            <div>
+                <p class="mg-bottom">ou bien sur nos résaux sociaux:</p>
+                <div class="social-media">
+                    <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+</body>
+
+</html>
