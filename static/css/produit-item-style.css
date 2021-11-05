@@ -58,14 +58,6 @@ a {
   border-color: #004a99;
 }
 
-.success-messages {
-  background-color: #d4edda;
-  padding: 20px 50px;
-  color: #29a847;
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-}
-
 /************* mobile design *************/
 @media only screen and (max-width: 760px) {
   .section-title .title {
@@ -207,17 +199,14 @@ header .home-icon {
 }
 
 .produit-item .display-phone {
-  width: 100%;
   display: none;
-}
-
-.produit-item .errors {
-  color: red;
-  margin-bottom: 10px;
 }
 
 /************* mobile design *************/
 @media only screen and (max-width: 760px) {
+  .produit-item {
+    margin-bottom: 0;
+  }
   .produit-item .container {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -234,11 +223,12 @@ header .home-icon {
   }
   .produit-item .display-phone {
     width: 100%;
-    display: inline-block;
+    display: block;
     position: -webkit-sticky;
     position: sticky;
     bottom: 0;
     text-align: center;
+    margin-bottom: 20px;
   }
 }
 

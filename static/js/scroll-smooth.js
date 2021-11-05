@@ -7,3 +7,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
+
+$(window).scroll(function () {
+            if ($(window).width() <= 760) {
+                if ($(this).scrollTop() > 600) {
+                    $('.display-phone').hide();
+                } else {
+                    $('.display-phone').fadeIn();
+                }
+            }
+        });

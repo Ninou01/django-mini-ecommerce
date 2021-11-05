@@ -5,14 +5,18 @@
 
 {% comment %} css style code file {% endcomment %}
 <link rel="stylesheet" href="{% static 'css/produit-item-style.css' %}">
+
+{% comment %} jquery {% endcomment %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 {% if messages %}
-    <div class="success-messages">
-        <ul>
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-                {% endfor %}
-        </ul>
-    </div>
+<div class="success-messages">
+    <ul>
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+    </ul>
+</div>
 {% endif %}
 
 <section class="produit-item">

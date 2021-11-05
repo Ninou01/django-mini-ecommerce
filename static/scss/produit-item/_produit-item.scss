@@ -89,27 +89,19 @@
         label {
             font-weight: bold;
         }
-
     }
 
     .display-phone {
-        width: 100%;
+        // width: 100%;
         display: none;
     }
-    .errors {
-
-        color: red;
-        margin-bottom: 10px;
-        // ul.errorlist {
-        // }
-    }
-
 }
 
 /************* mobile design *************/
 
 @media only screen and (max-width: 760px) {
     .produit-item {
+        margin-bottom: 0;
 
         .container {
             flex-direction: column;
@@ -127,10 +119,11 @@
 
         .display-phone {
             width: 100%;
-            display: inline-block;
+            display: block;
             position: sticky;
             bottom: 0;
             text-align: center;
+            margin-bottom: 20px;
         }
     }
     
