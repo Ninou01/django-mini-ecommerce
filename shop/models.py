@@ -69,8 +69,8 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
     when corresponding `Produit` object is deleted.
     """
     if instance.image:
-        if os.path.isfile(instance.image.path):
-            os.remove(instance.image.path)
+        if os.path.isfile(instance.image.name):
+            os.remove(instance.image.name)
 
 
 @receiver(models.signals.pre_save, sender=Produit)
@@ -90,5 +90,5 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
 
     new_file = instance.image
     if not old_file == new_file:
-        if os.path.isfile(old_file.path):
-            os.remove(old_file.path)
+        if os.path.isfile(old_file.name):
+            os.remove(old_file.name)
