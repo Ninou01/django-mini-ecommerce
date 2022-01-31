@@ -82,7 +82,8 @@ header {
 }
 
 header .logo img {
-  width: 200px;
+  width: 100px;
+  border-radius: 50%;
 }
 
 header a {
