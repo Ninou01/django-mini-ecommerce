@@ -8,7 +8,7 @@ from .forms import CommandeForm
 
 
 def shop_page(request):
-    produits = Produit.objects.all()
+    produits = Produit.objects.all().order_by('-id')
     context = {
         "produits": produits
     }
