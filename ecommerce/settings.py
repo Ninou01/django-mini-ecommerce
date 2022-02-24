@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     'shop.apps.ShopConfig',
     'storages',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
