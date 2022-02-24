@@ -47,3 +47,6 @@ def produit_page(request, produit_id, slug):
     }
 
     return render(request, 'produit-item.html', context)
+
+def policy(request):
+    return render(request, 'policy.html')
