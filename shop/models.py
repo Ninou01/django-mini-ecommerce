@@ -5,6 +5,7 @@ from django.core.validators import RegexValidator
 from django.core.validators import MinValueValidator
 import os
 import datetime
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -21,7 +22,8 @@ class Produit(models.Model):
     prix = models.PositiveIntegerField()
     prix_remise = models.PositiveIntegerField(blank=True, null=True)
     slug = models.SlugField(blank=True)
-    description = models.TextField(blank=True, null=True)
+    # description = models.TextField(blank=True, null=True)
+    description = RichTextField()
     quantité_en_stock = models.PositiveIntegerField(default=0)
     image = models.ImageField(upload_to='shop/produits/')
 
