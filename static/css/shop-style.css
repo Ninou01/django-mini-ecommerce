@@ -133,6 +133,7 @@ header .home-icon {
   }
   .hero__title {
     font-size: 2rem;
+    padding-bottom: 0;
   }
   .hero p {
     font-size: 1.2rem;
